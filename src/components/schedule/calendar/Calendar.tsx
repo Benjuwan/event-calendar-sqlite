@@ -1,0 +1,85 @@
+"use client"
+
+import { memo, useEffect, useState } from "react";
+import { ADMIN_PAGE_PATH_NAME } from "@/constants/adminPagePathName";
+import calendarStyle from "./styles/calendarStyle.module.css";
+import { calendarItemType } from "./ts/calendarItemType";
+import { useAtom } from "jotai";
+import { fetchTodoMemoAtom, isAdminPageAtom, isDesktopViewAtom } from "@/types/calendar-atom";
+import PrevNextMonthBtns from "./components/PrevNextMonthBtns";
+import DaydateList from "./components/DaydateList";
+import DaysList from "./components/DaysList";
+import { useGetMonthDays } from "./hooks/useGetMonthDays";
+import { useRemovePastSchedule } from "./hooks/useRemovePastSchedule";
+import { usePathname } from "next/navigation";
+
+function Calendar() {
+    const pathNameStr: string = usePathname();
+
+    const [, setAdminPage] = useAtom(isAdminPageAtom);
+    const [, setDesktopView] = useAtom(isDesktopViewAtom);
+    const [fetchTodoMemo] = useAtom(fetchTodoMemoAtom);
+
+    const currYear = new Date().getFullYear();
+    const currMonth = new Date().getMonth() + 1;
+    const [ctrlYear, setCtrlYear] = useState<number>(currYear);
+    const [ctrlMonth, setCtrlMonth] = useState<number>(currMonth);
+    const [days, setDays] = useState<calendarItemType[]>([]);
+
+    const { getMonthDays } = useGetMonthDays();
+    const { removePastSchedule } = useRemovePastSchedule();
+
+    const handleCheckIsDesktopView: () => void = () => {
+        if (window.matchMedia("(min-width: 1025px)").matches) {
+            setDesktopView(true);
+        }
+    }
+
+    const jumpThisMonth: () => void = () => {
+        const thisYear: number = new Date().getFullYear();
+        const thisMonth: number = new Date().getMonth() + 1;
+        setCtrlYear(thisYear);
+        setCtrlMonth(thisMonth);
+        getMonthDays(thisYear, thisMonth, setDays);
+        window.scrollTo(0, 0);
+    }
+
+    useEffect(() => {
+        handleCheckIsDesktopView();
+        removePastSchedule(fetchTodoMemo);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fetchTodoMemo]);
+
+    useEffect(() => {
+        getMonthDays(ctrlYear, ctrlMonth, setDays);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ctrlMonth]);
+
+    useEffect(() => {
+        setAdminPage(false);
+        if (pathNameStr === `/${ADMIN_PAGE_PATH_NAME}`) {
+            setAdminPage(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <section className={calendarStyle.wrapper}>
+            <h2>{ctrlYear}年{ctrlMonth}月</h2>
+            <PrevNextMonthBtns props={{
+                className: calendarStyle.btns,
+                ctrlYear: ctrlYear,
+                setCtrlYear: setCtrlYear,
+                ctrlMonth: ctrlMonth,
+                setCtrlMonth: setCtrlMonth
+            }} />
+            <button id={calendarStyle["jumpThisMonth"]} type="button" onClick={jumpThisMonth}>今月に移動</button>
+            <ul className={calendarStyle.calendar}>
+                <DaydateList days={days} />
+                <DaysList days={days} />
+            </ul>
+        </section>
+    );
+}
+
+export default memo(Calendar);
