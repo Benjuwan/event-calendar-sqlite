@@ -5,9 +5,23 @@
 ログイン機能を設けて管理者権限のユーザーだけがイベント内容を編集できるようにするのが一般的ですが、アカウント作成・管理が手間というユーザー（またはアカウント作成という部分にハードルを感じる弊社員のような方々）向けに、**「ログイン機能は無し」 + 「管理者専用ページを用意」することで抵抗なく手軽に扱える**ようにしました。<br>
 具体的には`https://{サイトドメイン}/ctrl-schedules`というようにURL末尾に`ctrl-schedules`を付けることで、イベント情報を編集できる管理者専用ページに飛びます。<br><br>
 
+---
+
+- 管理者専用ページ（`/ctrl-schedules`）
+<img width="611" height="850" alt="Image" src="https://github.com/user-attachments/assets/e8a28bea-72fb-4716-8488-deb0fa20d409" />
+
+- ゲストページ（`/`）
+<img width="605" height="848" alt="Image" src="https://github.com/user-attachments/assets/e7a10f73-ecac-4ea9-a6bc-209b1c94e62b" />
+
+- 管理者専用ページ（`/ctrl-schedules`）でのみ登録イベントの編集が可能<br>
+※ゲストページでは`内容編集`ボタンが表示されません
+<img width="615" height="798" alt="Image" src="https://github.com/user-attachments/assets/9b0d5752-d18a-441f-86c0-5f71ba4c9917" />
+
+---
+
 `prisma`×`SQLite`でイベント予約をビルトインのデータベースに保存・管理する仕様にしています。<br>
 
-- `src/types/rooms-atom.ts`：会場数と予約可能時間の設定ファイル
+- `src/types/rooms-atom.ts`：会場数と予約可能時間（※現状9～19時まで）の設定ファイル
 - `src/constants/adminPagePathName.ts`：管理者専用ページのURLパス文字列
     - 現状`'ctrl-schedules'`で設定：<br>
     Next.js のファイルシステムベースのルーティングに則り、URLパスを変更したい場合は`src/app`内に希望するページURL名のフォルダ（ディレクトリ）を設けてください（※`layout.tsx`, `page.tsx`は変更せず、そのままでok）
@@ -17,7 +31,7 @@
 
 ## 技術構成
 - @prisma/client@6.13.0
-- @types/node@22.17.0
+- @types/node@22.17.1
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
@@ -46,13 +60,13 @@ npx prisma generate
 ```
 
 ## セットアップ（起動）に必要な作業
-- `.env.local`を用意
+1. `.env.local`を用意
 ```bash
 # NEXT_PUBLIC を前置した環境変数はクライアントサイドに露出する 
 NEXT_PUBLIC_API_URL=http://localhost:3000/
 ```
 
-- `Prisma`クライアントを更新してスキーマを反映（`npx prisma generate`を実行）
+2. `Prisma`クライアントを更新してスキーマを反映（`npx prisma generate`を実行）
 ```bash
 npx prisma generate
 ```

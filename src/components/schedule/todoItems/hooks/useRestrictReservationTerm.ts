@@ -17,7 +17,7 @@ export const useRestrictReservationTerm = () => {
 
         const isValidationReservable: boolean = configReservableTerm_YearMonth < dayDate;
         if (isValidationReservable) {
-            alert(`6ヶ月以内（${ReservableTermYear}/${ReservableTermMonth}まで）が予約可能（受け付け）期間です。`);
+            alert(`6ヶ月以内（${ReservableTermYear}/${ReservableTermMonth}まで）がイベントの登録可能期間です。`);
             return true;
         }
 
