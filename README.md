@@ -14,7 +14,7 @@
 <img width="605" height="848" alt="Image" src="https://github.com/user-attachments/assets/e7a10f73-ecac-4ea9-a6bc-209b1c94e62b" />
 
 - 管理者専用ページ（`/ctrl-schedules`）でのみ登録イベントの編集が可能<br>
-※ゲストページでは`内容編集`ボタンが表示されません
+※ゲストページでは`内容修正`ボタンが表示されません
 <img width="615" height="798" alt="Image" src="https://github.com/user-attachments/assets/9b0d5752-d18a-441f-86c0-5f71ba4c9917" />
 
 ---
@@ -37,7 +37,7 @@
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
-- jotai@2.13.0
+- jotai@2.13.1
 - next@15.4.6
 - prisma@6.13.0
 - react-dom@19.0.0
