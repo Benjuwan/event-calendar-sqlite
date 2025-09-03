@@ -1,7 +1,7 @@
 ## Event-Calendar-SQLite
 [reserve-sys-sqlite](https://github.com/Benjuwan/reserve-sys-sqlite)をベースにしたイベントカレンダーシステムUIです<br><br>
 
-任意の会場数を用意するとともに、各会場ごとのイベント予約を視覚的に把握及び管理・編集できるようにしています<br>
+任意の会場（場所・部屋）数を用意するとともに、各会場ごとのイベント予約を視覚的に把握及び管理・編集できるようにしています<br>
 ログイン機能を設けて管理者権限のユーザーだけがイベント内容を編集できるようにするのが一般的ですが、アカウント作成・管理が手間というユーザー（またはアカウント作成という部分にハードルを感じる弊社員のような方々）向けに、**「ログイン機能は無し」 + 「管理者専用ページを用意」することで抵抗なく手軽に扱える**ようにしました。<br>
 具体的には`https://{サイトドメイン}/ctrl-schedules`というようにURL末尾に`ctrl-schedules`を付けることで、イベント情報を編集できる管理者専用ページに飛びます。<br><br>
 
@@ -30,16 +30,17 @@
 仕様や予約フロー、UIに関しては[reserve-sys-sqlite](https://github.com/Benjuwan/reserve-sys-sqlite)リポジトリとほぼ同様なので、気になる方は先のリンクを参照してください。
 
 ## 技術構成
-- @prisma/client@6.13.0
-- @types/node@22.17.1
+- @eslint/eslintrc@3.3.1
+- @prisma/client@6.15.0
+- @types/node@22.18.0
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
 - jotai@2.13.1
-- next@15.4.6
-- prisma@6.13.0
+- next@15.5.2
+- prisma@6.15.0
 - react-dom@19.0.0
 - react@19.0.0
 - typescript@5.9.2
