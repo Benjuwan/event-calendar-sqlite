@@ -32,10 +32,10 @@ function TodoForm({ props }: { props: TodoFormType }) {
         todoContent: '',
         edit: todoItem ? todoItem.edit : false,
         person: todoItem ? todoItem.person : '',
-        rooms: roomRef.current !== null ? roomRef.current.value : rooms[0].room,
+        rooms: rooms[0].room,
         startTime: '',
         finishTime: ''
-    };
+    }
     const [todoItems, setTodoItems] = useState<todoItemType>(initTodoItems);
 
     const { regiTodoItem } = useRegiTodoItem();
