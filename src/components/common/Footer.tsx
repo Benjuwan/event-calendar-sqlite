@@ -10,7 +10,7 @@ function Footer() {
 
     return (
         <footer className={baseStyle.theFooter}>
-            <p><small suppressHydrationWarning={true}>&copy; {thisYear} <Link href={'https://github.com/benjuwan'} target="_blank">benjuwan</Link></small></p>
+            <p><small>&copy; {thisYear} <Link href={'https://github.com/benjuwan'} target="_blank">benjuwan</Link></small></p>
         </footer>
     );
 }
