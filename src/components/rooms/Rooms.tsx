@@ -73,7 +73,6 @@ function Rooms({ theToday }: { theToday: number }) {
             <MultiTimeTableCtrlBtns props={{
                 ctrlMultiTimeTable: ctrlMultiTimeTable,
                 setCtrlMultiTimeTable: setCtrlMultiTimeTable,
-                theToday: theToday,
                 theThisLastDay: theThisLastDay
             }} />
             {rooms.map((room, i) => (
