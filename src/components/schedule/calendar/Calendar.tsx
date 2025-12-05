@@ -29,12 +29,6 @@ function Calendar() {
     const { getMonthDays } = useGetMonthDays();
     const { removePastSchedule } = useRemovePastSchedule();
 
-    const handleCheckIsDesktopView: () => void = () => {
-        if (window.matchMedia("(min-width: 1025px)").matches) {
-            setDesktopView(true);
-        }
-    }
-
     const jumpThisMonth: () => void = () => {
         const thisYear: number = new Date().getFullYear();
         const thisMonth: number = new Date().getMonth() + 1;
@@ -45,15 +39,19 @@ function Calendar() {
     }
 
     useEffect(() => {
-        handleCheckIsDesktopView();
         removePastSchedule(fetchTodoMemo);
+
+        if (window.matchMedia("(min-width: 1025px)").matches) {
+            setDesktopView(true);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchTodoMemo]);
+    }, []);
 
     useEffect(() => {
         getMonthDays(ctrlYear, ctrlMonth, setDays);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ctrlMonth]);
+    }, []);
 
     useEffect(() => {
         setAdminPage(false);
