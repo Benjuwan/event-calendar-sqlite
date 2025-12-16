@@ -50,8 +50,7 @@ function Calendar() {
 
     useEffect(() => {
         getMonthDays(ctrlYear, ctrlMonth, setDays);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [getMonthDays, ctrlYear, ctrlMonth,]);
 
     useEffect(() => {
         setAdminPage(false);
