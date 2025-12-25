@@ -14,11 +14,17 @@ export const useTimeBlock = () => {
         // 最終週かどうか判定
         const isLastWeek: boolean = new Date().getDate() > (thisLastDay - 7);
 
-        const theTimeTableViewDay: string = useMemo(() => {
-            return `${thisYear}/${isLastWeek && ctrlMultiTimeTable < 7 ? thisMonth + 1 : thisMonth}/${ctrlMultiTimeTable}`;
+        const isNextMonth: boolean = useMemo(() => ctrlMultiTimeTable - 7 < 0, [ctrlMultiTimeTable]);
+        const isDec: boolean = useMemo(() => thisMonth === 12, [thisMonth]);
 
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [ctrlMultiTimeTable]);
+        const theYear: number = useMemo(() => isNextMonth && isDec ? thisYear + 1 : thisYear, [isNextMonth, isDec, thisYear]);
+        const theMonth: number = useMemo(() => isLastWeek && isNextMonth ?
+            (isDec ? 1 : thisMonth + 1) : thisMonth,
+            [isLastWeek, isNextMonth, isDec, thisMonth]);
+
+        const theTimeTableViewDay: string = useMemo(() => {
+            return `${theYear}/${theMonth}/${ctrlMultiTimeTable}`;
+        }, [theYear, theMonth, ctrlMultiTimeTable]);
 
         return theTimeTableViewDay;
     }
