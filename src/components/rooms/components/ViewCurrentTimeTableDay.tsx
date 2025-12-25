@@ -1,9 +1,6 @@
 import { memo, useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
 
 function ViewCurrentTimeTableDay({ ctrlMultiTimeTable }: { ctrlMultiTimeTable: number }) {
-    const pathName: string = usePathname();
-
     const [theThisMonth, setThisMonth] = useState<number | undefined>(undefined);
 
     const isNextMonth: boolean = useMemo(() => ctrlMultiTimeTable - 7 < 0, [ctrlMultiTimeTable]);
@@ -28,14 +25,10 @@ function ViewCurrentTimeTableDay({ ctrlMultiTimeTable }: { ctrlMultiTimeTable: n
     }
 
     return (
-        <>
-            {(pathName.length === 1 && typeof theThisMonth === 'number') &&
-                <p>- <b>{
-                    isNextMonth ?
-                        (isDec ? 1 : theThisMonth + 1) : theThisMonth
-                }/{ctrlMultiTimeTable}</b> の予約内容（※7日後まで確認可能）</p>
-            }
-        </>
+        <p>- <b>{
+            isNextMonth ?
+                (isDec ? 1 : theThisMonth + 1) : theThisMonth
+        }/{ctrlMultiTimeTable}</b> の予約内容（※7日後まで確認可能）</p>
     );
 }
 
