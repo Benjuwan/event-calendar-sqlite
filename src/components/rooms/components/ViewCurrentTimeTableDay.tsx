@@ -1,11 +1,13 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ADMIN_PAGE_PATH_NAME } from "@/constants/adminPagePathName";
 
-function ViewCurrentTimeTableDay({ ctrlMultiTimeTable, isLastWeek }: { ctrlMultiTimeTable: number, isLastWeek: boolean }) {
+function ViewCurrentTimeTableDay({ ctrlMultiTimeTable }: { ctrlMultiTimeTable: number }) {
     const pathName: string = usePathname();
 
     const [theThisMonth, setThisMonth] = useState<number | undefined>(undefined);
+
+    const isNextMonth: boolean = useMemo(() => ctrlMultiTimeTable - 7 < 0, [ctrlMultiTimeTable]);
+    const isDec: boolean = useMemo(() => theThisMonth === 12, [theThisMonth]);
 
     // ハイドレーションエラーおよびLintエラー対策のための処理
     useEffect(() => {
@@ -22,13 +24,16 @@ function ViewCurrentTimeTableDay({ ctrlMultiTimeTable, isLastWeek }: { ctrlMulti
     }, [setThisMonth]);
 
     if (typeof theThisMonth === 'undefined') {
-        return <p>- mm/dd の予約内容（※7日後まで確認可能）</p>
+        return <p>- mm/d の予約内容（※7日後まで確認可能）</p>
     }
 
     return (
         <>
-            {(pathName.length === 1 || pathName === `/${ADMIN_PAGE_PATH_NAME}`) &&
-                <p>- <b>{isLastWeek && ctrlMultiTimeTable <= 7 ? theThisMonth + 1 : theThisMonth}/{ctrlMultiTimeTable}</b> の予約内容（※7日後まで確認可能）</p>
+            {(pathName.length === 1 && typeof theThisMonth === 'number') &&
+                <p>- <b>{
+                    isNextMonth ?
+                        (isDec ? 1 : theThisMonth + 1) : theThisMonth
+                }/{ctrlMultiTimeTable}</b> の予約内容（※7日後まで確認可能）</p>
             }
         </>
     );
