@@ -1,9 +1,17 @@
 import { memo, useEffect, useMemo, useState } from "react";
 
-function ViewCurrentTimeTableDay({ ctrlMultiTimeTable }: { ctrlMultiTimeTable: number }) {
+type timeTableDayProps = {
+    ctrlMultiTimeTable: number;
+    isLastWeek: boolean;
+};
+
+function ViewCurrentTimeTableDay({ props }: { props: timeTableDayProps }) {
+    const { ctrlMultiTimeTable, isLastWeek } = props;
+
     const [theThisMonth, setThisMonth] = useState<number | undefined>(undefined);
 
-    const isNextMonth: boolean = useMemo(() => ctrlMultiTimeTable - 7 < 0, [ctrlMultiTimeTable]);
+    const isNextMonth: boolean = useMemo(() => isLastWeek && ctrlMultiTimeTable - 7 < 0, [isLastWeek, ctrlMultiTimeTable]);
+
     const isDec: boolean = useMemo(() => theThisMonth === 12, [theThisMonth]);
 
     // ハイドレーションエラーおよびLintエラー対策のための処理
@@ -18,6 +26,7 @@ function ViewCurrentTimeTableDay({ ctrlMultiTimeTable }: { ctrlMultiTimeTable: n
         return () => {
             clearTimeout(timeId);
         }
+
     }, [setThisMonth]);
 
     if (typeof theThisMonth === 'undefined') {
