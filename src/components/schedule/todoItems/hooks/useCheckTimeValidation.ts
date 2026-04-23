@@ -1,4 +1,3 @@
-import { RefObject } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { timeBlockBegin, timeBlockEnd } from "@/types/rooms-atom";
 import { useCheckTimeBlockEntryForm } from "./useCheckTimeBlockEntryForm";
@@ -6,24 +5,25 @@ import { useCheckTimeBlockEntryForm } from "./useCheckTimeBlockEntryForm";
 export const useCheckTimeValidation = () => {
     const { checkTimeBlockEntryForm, checkTimeSchedule } = useCheckTimeBlockEntryForm();
 
-    const checkTimeValidation: (todoItems: todoItemType, validationTxtRef?: RefObject<string>) => void = (
+    const checkTimeValidation: (todoItems: todoItemType, setValidationTxt?: (txt: string) => void, currentValidationTxt?: string) => void = (
         todoItems: todoItemType,
-        validationTxtRef?: RefObject<string>
+        setValidationTxt?: (txt: string) => void,
+        currentValidationTxt?: string
     ) => {
         if (
             (typeof todoItems.startTime !== 'undefined' && typeof todoItems.finishTime !== 'undefined') &&
-            typeof validationTxtRef !== 'undefined'
+            typeof setValidationTxt !== 'undefined'
         ) {
             const isCheckTimeSchedule_start: boolean = checkTimeSchedule(todoItems.startTime, todoItems);
             const isCheckTimeSchedule_finish: boolean = checkTimeSchedule(todoItems.finishTime, todoItems);
             if (isCheckTimeSchedule_start || isCheckTimeSchedule_finish) {
-                validationTxtRef.current = '他のイベントを既に予約済みです';
+                setValidationTxt('他のイベントを既に予約済みです');
             }
 
             const isCheckTimeBlockEntryForm_start: boolean = checkTimeBlockEntryForm(todoItems.startTime);
             const isCheckTimeBlockEntryForm_finish: boolean = checkTimeBlockEntryForm(todoItems.finishTime);
             if (isCheckTimeBlockEntryForm_start || isCheckTimeBlockEntryForm_finish) {
-                validationTxtRef.current = `「${timeBlockBegin}時〜${timeBlockEnd}時」の時間帯で指定してください`;
+                setValidationTxt(`「${timeBlockBegin}時〜${timeBlockEnd}時」の時間帯で指定してください`);
             }
 
             const isCheckTimeSchedule_FALSE: boolean = !isCheckTimeSchedule_start && !isCheckTimeSchedule_finish;
@@ -33,9 +33,9 @@ export const useCheckTimeValidation = () => {
             if (
                 isCheckTimeSchedule_FALSE &&
                 isCheckTimeBlockEntryForm_FALSE &&
-                validationTxtRef.current.length > 0
+                (currentValidationTxt || '').length > 0
             ) {
-                validationTxtRef.current = '';
+                setValidationTxt('');
             }
         }
     }
