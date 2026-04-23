@@ -24,7 +24,7 @@ function TodoForm({ props }: { props: TodoFormType }) {
     const [rooms] = useAtom(roomsAtom);
 
     const roomRef = useRef<null | HTMLSelectElement>(null);
-    const validationTxtRef = useRef<string>('');
+    const [validationTxt, setValidationTxt] = useState<string>('');
 
     const initTodoItems: todoItemType = {
         id: todoItem ? todoItem.id : '001',
@@ -66,13 +66,13 @@ function TodoForm({ props }: { props: TodoFormType }) {
             <TodoFormItemPerson todoItems={todoItems} setTodoItems={setTodoItems} />
 
             {/* 予約室 */}
-            <TodoFormItemRoom rooms={rooms} todoItems={todoItems} setTodoItems={setTodoItems} roomRef={roomRef} validationTxtRef={validationTxtRef} />
+            <TodoFormItemRoom rooms={rooms} todoItems={todoItems} setTodoItems={setTodoItems} roomRef={roomRef} validationTxt={validationTxt} setValidationTxt={setValidationTxt} />
 
             {/* タイムテーブル（スケジュール）*/}
-            <TodoFormItemTimeSchedule todoItems={todoItems} setTodoItems={setTodoItems} validationTxtRef={validationTxtRef} />
+            <TodoFormItemTimeSchedule todoItems={todoItems} setTodoItems={setTodoItems} validationTxt={validationTxt} setValidationTxt={setValidationTxt} />
 
             {/* 登録ボタン */}
-            <TodoFormItemRegiBtn todoItems={todoItems} resetStates={resetStates} validationTxtRef={validationTxtRef} />
+            <TodoFormItemRegiBtn todoItems={todoItems} resetStates={resetStates} validationTxt={validationTxt} />
         </form>
     );
 }

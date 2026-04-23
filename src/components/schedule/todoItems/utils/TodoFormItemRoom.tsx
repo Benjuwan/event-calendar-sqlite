@@ -1,20 +1,24 @@
-import { SyntheticEvent, Dispatch, Ref, memo, SetStateAction, RefObject } from "react";
+import { SyntheticEvent, Dispatch, Ref, memo, SetStateAction, useEffect } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { roomsType } from "@/components/rooms/ts/roomsType";
 import { useHandleFormEntries } from "@/hooks/useHandleFormEntries";
 import { useCheckTimeValidation } from "../hooks/useCheckTimeValidation";
 
-function TodoFormItemRoom({ rooms, todoItems, setTodoItems, roomRef, validationTxtRef }: {
+function TodoFormItemRoom({ rooms, todoItems, setTodoItems, roomRef, validationTxt, setValidationTxt }: {
     rooms: roomsType,
     todoItems: todoItemType,
     setTodoItems: Dispatch<SetStateAction<todoItemType>>,
     roomRef: Ref<HTMLSelectElement> | undefined,
-    validationTxtRef?: RefObject<string>
+    validationTxt: string,
+    setValidationTxt: (txt: string) => void
 }) {
     const { handleFormEntries } = useHandleFormEntries();
 
     const { checkTimeValidation } = useCheckTimeValidation();
-    checkTimeValidation(todoItems, validationTxtRef);
+
+    useEffect(() => {
+        checkTimeValidation(todoItems, setValidationTxt, validationTxt);
+    }, [todoItems, setValidationTxt, validationTxt, checkTimeValidation]);
 
     return (
         <>
