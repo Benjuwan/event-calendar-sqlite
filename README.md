@@ -30,22 +30,22 @@
 仕様や予約フロー、UIに関しては[reserve-sys-sqlite](https://github.com/Benjuwan/reserve-sys-sqlite)リポジトリとほぼ同様なので、気になる方は先のリンクを参照してください。
 
 ## 技術構成
-- @eslint/eslintrc@3.3.5
-- @prisma/adapter-better-sqlite3@7.8.0
-- @prisma/client@7.8.0
-- @types/node@25.9.3
+- @eslint/eslintrc@3.3.6
+- @prisma/adapter-better-sqlite3@7.9.1
+- @prisma/client@7.9.1
+- @types/node@26.1.2
 - @types/react-dom@19.2.3
 - @types/react@19.2.17
 - @types/uuid@10.0.0
-- eslint-config-next@16.2.9
-- eslint@9.39.4
-- jotai@2.20.1
-- next@16.2.9
-- prisma@7.8.0
-- react-dom@19.2.7
-- react@19.2.7
+- eslint-config-next@16.2.12
+- eslint@9.39.5
+- jotai@2.20.2
+- next@16.2.12
+- prisma@7.9.1
+- react-dom@19.2.8
+- react@19.2.8
 - typescript@6.0.3
-- uuid@14.0.0
+- uuid@14.0.1
 
 ---
 
