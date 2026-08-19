@@ -33,19 +33,19 @@
 - @eslint/eslintrc@3.3.6
 - @prisma/adapter-better-sqlite3@7.9.1
 - @prisma/client@7.9.1
-- @types/node@26.1.2
-- @types/react-dom@19.2.3
-- @types/react@19.2.17
+- @types/node@26.2.0
+- @types/react-dom@19.2.4
+- @types/react@19.2.18
 - @types/uuid@10.0.0
-- eslint-config-next@16.2.12
+- eslint-config-next@16.3.1
 - eslint@9.39.5
 - jotai@2.20.2
-- next@16.2.12
+- next@16.3.1
 - prisma@7.9.1
 - react-dom@19.2.8
 - react@19.2.8
 - typescript@6.0.3
-- uuid@14.0.1
+- uuid@14.0.2
 
 ---
 
