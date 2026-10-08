@@ -90,6 +90,24 @@ npx prisma db push
 npx prisma generate
 ```
 
+3. npm v12 における install-scripts ブロックと対処（備忘録）
+npm v12 ではセキュリティ強化により、パッケージのインストールスクリプト（`postinstall`, `node-gyp rebuild` 等）が既定でブロックされます（`allowScripts` 制約）。  
+本プロジェクトでは SQLite のネイティブドライバ（`better-sqlite3`）および `@prisma/engines` がインストールスクリプトを必要とするため、ブロックされた状態のまま `npm run dev` 等を起動すると、データベース接続および API フェッチ処理でクラッシュ（エラー）が発生します。
+
+```bash
+# 1. ブロックされたスクリプトを承認（package.json に allowScripts が自動登録されます）
+npm install-scripts approve better-sqlite3 @prisma/engines prisma unrs-resolver
+
+# 2. ネイティブバイナリの再コンパイル
+npm rebuild
+
+# 3. Prisma Client の再生成
+npx prisma generate
+
+# 4. マイグレーションの適用（ローカル SQLite DB が未作成の場合）
+npx prisma migrate deploy
+```
+
 ## 備考
 - `prisma studio`  
 `GUI`でテーブル操作できる機能
