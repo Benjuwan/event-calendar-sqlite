@@ -30,22 +30,30 @@
 仕様や予約フロー、UIに関しては[reserve-sys-sqlite](https://github.com/Benjuwan/reserve-sys-sqlite)リポジトリとほぼ同様なので、気になる方は先のリンクを参照してください。
 
 ## 技術構成
-- @eslint/eslintrc@3.3.6
-- @prisma/adapter-better-sqlite3@7.9.1
-- @prisma/client@7.9.1
-- @types/node@26.2.0
-- @types/react-dom@19.2.4
-- @types/react@19.2.18
+- @eslint/eslintrc@3.3.7
+- @prisma/adapter-better-sqlite3@7.10.0
+- @prisma/client@7.10.0
+- @types/node@26.6.4
+- @types/react-dom@19.3.0
+- @types/react@19.3.0
 - @types/uuid@10.0.0
-- eslint-config-next@16.3.1
+- @typescript-eslint/eslint-plugin@8.71.1
+- @typescript-eslint/parser@8.71.1
+- eslint-config-next@16.4.0
 - eslint@9.39.5
-- jotai@2.20.2
-- next@16.3.1
-- prisma@7.9.1
-- react-dom@19.2.8
-- react@19.2.8
+- jotai@3.0.1
+- next@16.4.0
+- prisma@7.10.0
+- react-dom@19.3.0
+- react@19.3.0
 - typescript@6.0.3
 - uuid@14.0.2
+
+### overrides 設定注記
+- `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`, `typescript-eslint`: `^8.71.1`（`eslint-config-next@16.4.0` 内部の固定依存との ERESOLVE 競合を解消し、最新版 8.71.1 へ追従するために設定）
+- `mysql2`: `^3.24.5`（Prisma 内部の間接依存における認証ダウングレード脆弱性 GHSA-3f6p-5ww8-9rcr / GHSA-rgwj-5xj2-c3m3 を、Prisma 6 への破壊的ダウングレードを回避して安全に解消するために設定。親パッケージ追従時に削除予定）
+- `postcss`: `^8.5.18`
+- `@prisma/config` -> `deepmerge-ts`: `^8.0.0`
 
 ---
 
